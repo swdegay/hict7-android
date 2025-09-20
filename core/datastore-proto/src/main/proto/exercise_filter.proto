@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+option java_package = "dev.sethdegay.hict7.core.datastore";
+option java_multiple_files = true;
+
+message ExerciseFilter {
+  bool show_warm_up = 1;
+  bool show_rest = 2;
+  bool show_cool_down = 3;
+}
