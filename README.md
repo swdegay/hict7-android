@@ -45,8 +45,8 @@ for details.
 
 ### App Architecture
 
-The architectural patterns and design decisions for this project were guided by these resources,
-which provided insights into Android app modularization.
+This project was built as a learning project to apply principles of multi-module app architecture,
+guided by these resources that provided insights into Android app modularization.
 
 - **Android Developer Documentation:**
     - [Guide to Android app modularization](https://developer.android.com/topic/modularization)
