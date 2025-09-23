@@ -7,4 +7,5 @@ data class Exercise(
     val title: String,
     val duration: Duration,
     val type: IntervalType = IntervalType.NORMAL,
+    val order: Int = -1,
 )

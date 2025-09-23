@@ -63,7 +63,7 @@ class WorkoutPreloadCallback(private val scope: CoroutineScope) : RoomDatabase.C
                         )
                     }
                 }
-            }
+            }.mapIndexed { i, exercise -> exercise.copy(order = i + 1) }
         },
     )
 
@@ -106,8 +106,8 @@ class WorkoutPreloadCallback(private val scope: CoroutineScope) : RoomDatabase.C
             )
             exercises.forEach {
                 db.execSQL(
-                    "INSERT INTO exercise (workout_id, title, duration, type) " +
-                            "VALUES ($id, '${it.title}', ${it.duration.toLong(DurationUnit.SECONDS)}, '${it.type.name}')"
+                    "INSERT INTO exercise (workout_id, title, duration, type, list_order) " +
+                            "VALUES ($id, '${it.title}', ${it.duration.toLong(DurationUnit.SECONDS)}, '${it.type.name}', ${it.order})"
                 )
             }
             db.setTransactionSuccessful()

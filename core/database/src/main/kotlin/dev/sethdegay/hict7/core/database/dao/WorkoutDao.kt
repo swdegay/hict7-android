@@ -17,10 +17,10 @@ interface WorkoutDao {
     @Query("SELECT * FROM workout WHERE bookmarked == TRUE")
     suspend fun bookmarkedWorkouts(): List<WorkoutEntity>
 
-    @Query("SELECT * FROM exercise WHERE workout_id = :workoutId")
+    @Query("SELECT * FROM exercise WHERE workout_id = :workoutId ORDER BY list_order ASC")
     suspend fun exercisesForWorkout(workoutId: Long): List<ExerciseEntity>
 
-    @Query("SELECT * FROM exercise WHERE workout_id = :workoutId AND type IN (:allowedTypes)")
+    @Query("SELECT * FROM exercise WHERE workout_id = :workoutId AND type IN (:allowedTypes) ORDER BY list_order ASC")
     suspend fun filteredExercisesForWorkout(
         workoutId: Long,
         allowedTypes: List<IntervalType>,

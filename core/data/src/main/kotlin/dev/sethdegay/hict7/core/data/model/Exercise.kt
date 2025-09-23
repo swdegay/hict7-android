@@ -9,4 +9,5 @@ fun Exercise.asEntity(workoutId: Long): ExerciseEntity = ExerciseEntity(
     title = title,
     duration = duration,
     type = type,
+    order = order,
 )

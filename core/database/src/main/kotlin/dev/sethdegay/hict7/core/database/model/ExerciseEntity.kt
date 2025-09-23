@@ -23,6 +23,9 @@ data class ExerciseEntity(
 
     @ColumnInfo(name = "type")
     val type: IntervalType,
+
+    @ColumnInfo(name = "list_order")
+    val order: Int,
 )
 
 fun ExerciseEntity.asExternalModel(): Exercise = Exercise(
@@ -30,4 +33,5 @@ fun ExerciseEntity.asExternalModel(): Exercise = Exercise(
     title = title,
     duration = duration,
     type = type,
+    order = order,
 )

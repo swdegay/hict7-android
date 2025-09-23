@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "6cbec636b5502cedbdc2ae1b03e59fb0",
+    "identityHash": "d7d76d2a2e277386c53a73d5a1d7221c",
     "entities": [
       {
         "tableName": "calendar_event",
@@ -47,7 +47,7 @@
       },
       {
         "tableName": "exercise",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `workout_id` INTEGER NOT NULL, `title` TEXT NOT NULL, `duration` INTEGER NOT NULL, `type` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `workout_id` INTEGER NOT NULL, `title` TEXT NOT NULL, `duration` INTEGER NOT NULL, `type` TEXT NOT NULL, `list_order` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -76,6 +76,12 @@
             "fieldPath": "type",
             "columnName": "type",
             "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "order",
+            "columnName": "list_order",
+            "affinity": "INTEGER",
             "notNull": true
           }
         ],
@@ -135,7 +141,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6cbec636b5502cedbdc2ae1b03e59fb0')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd7d76d2a2e277386c53a73d5a1d7221c')"
     ]
   }
 }
