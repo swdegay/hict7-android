@@ -33,6 +33,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.sethdegay.hict7.core.designsystem.component.CardGroupItemAnimatedVisibility
@@ -215,7 +216,10 @@ fun WorkoutCardGroup(
             CardGroupTitle(
                 title = title,
             )
-            Hict7Icons.Filter.asComposableIconButton(onClick = onFilterIconClicked).invoke()
+            Hict7Icons.Filter.asComposableIconButton(
+                onClick = onFilterIconClicked,
+                contentDescription = stringResource(dev.sethdegay.hict7.core.common.res.R.string.common_filter_exercises_content_description),
+            ).invoke()
         }
         Spacer(modifier = Modifier.size(8.dp))
         workouts.forEach { workout ->

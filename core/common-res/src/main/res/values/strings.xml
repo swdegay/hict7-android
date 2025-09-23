@@ -4,6 +4,7 @@
 
     <!-- -->
     <string name="common_navigate_up_content_description">Navigate up</string>
+    <string name="common_filter_exercises_content_description">Filter exercises</string>
     <string name="common_minutes_suffix">m</string>
     <string name="common_seconds_suffix">s</string>
     <string name="common_not_available">n/a</string>
