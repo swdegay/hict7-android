@@ -110,11 +110,13 @@ fun CountdownDurationText(
                 fontSize = fontSize,
             )
         }
-        CountdownText(
-            timeValue = seconds,
-            suffix = stringResource(string.common_seconds_suffix),
-            fontSize = fontSize,
-        )
+        if (seconds != 0) {
+            CountdownText(
+                timeValue = seconds,
+                suffix = stringResource(string.common_seconds_suffix),
+                fontSize = fontSize,
+            )
+        }
     }
 }
 
@@ -165,6 +167,7 @@ private fun CountdownTimerTextPreview() {
 private fun CountdownDurationTextPreview() {
     Column {
         CountdownDurationText(duration = Duration.parse("10m 47s"))
+        CountdownDurationText(duration = Duration.parse("4m 0s"))
         CountdownDurationText(duration = Duration.parse("30s"))
     }
 }
@@ -175,6 +178,10 @@ private fun CountdownDurationCardPreview() {
     Column {
         CountdownDurationCard(
             duration = Duration.parse("10m 47s"),
+            icon = Hict7Icons.Timer.asComposableIcon(modifier = Modifier.scale(0.6f)),
+        )
+        CountdownDurationCard(
+            duration = Duration.parse("4m 0s"),
             icon = Hict7Icons.Timer.asComposableIcon(modifier = Modifier.scale(0.6f)),
         )
         CountdownDurationCard(
