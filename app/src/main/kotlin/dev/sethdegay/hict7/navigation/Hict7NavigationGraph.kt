@@ -8,8 +8,8 @@ import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSavedStateNavEntryDecorator
+import androidx.navigation3.scene.rememberSceneSetupNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
-import androidx.navigation3.ui.rememberSceneSetupNavEntryDecorator
 import dev.sethdegay.hict7.feature.editor.EditorScreen
 import dev.sethdegay.hict7.feature.editor.EditorViewModel
 import dev.sethdegay.hict7.feature.home.HomeScreen
