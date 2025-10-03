@@ -18,7 +18,6 @@ import com.mikepenz.aboutlibraries.ui.compose.android.rememberLibraries
 import com.mikepenz.aboutlibraries.ui.compose.m3.LibrariesContainer
 import com.mikepenz.aboutlibraries.ui.compose.m3.LicenseDialogBody
 import com.mikepenz.aboutlibraries.ui.compose.m3.libraryColors
-import dev.sethdegay.hict7.BuildConfig
 import dev.sethdegay.hict7.R
 import dev.sethdegay.hict7.core.common.res.R.string
 import dev.sethdegay.hict7.core.designsystem.icon.Hict7Icons
@@ -48,11 +47,11 @@ fun LibrariesScreen(navigateUp: () -> Unit) {
             modifier = Modifier.fillMaxSize(),
             libraries = libraries,
             contentPadding = padding,
-            showAuthor = BuildConfig.DEBUG,
-            showVersion = BuildConfig.DEBUG,
-            showDescription = BuildConfig.DEBUG,
+            showAuthor = false,
+            showVersion = false,
+            showDescription = false,
             showFundingBadges = false,
-            showLicenseBadges = BuildConfig.DEBUG,
+            showLicenseBadges = false,
             licenseDialogBody = { library, modifier ->
                 LicenseDialogBody(
                     library = library,

@@ -18,8 +18,6 @@ android {
             duplicationRule = DuplicateRule.SIMPLE
         }
     }
-
-    buildFeatures.buildConfig = true
 }
 
 dependencies {
