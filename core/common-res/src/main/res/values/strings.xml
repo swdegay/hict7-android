@@ -9,10 +9,14 @@
     <string name="common_seconds_suffix">s</string>
     <string name="common_not_available">n/a</string>
     <string name="common_dialog_close">Close</string>
+    <string name="common_dialog_save">Save</string>
+    <string name="common_workout_title_placeholder">Title</string>
+    <string name="common_workout_description_placeholder">Description</string>
 
     <!-- Editor -->
     <string name="editor_bookmark_add_content_description">Add to favorites</string>
     <string name="editor_bookmark_remove_content_description">Remove from favorites</string>
+    <string name="editor_title_edit_content_description">Edit title &amp; description</string>
 
     <!-- Home -->
     <string name="home_top_app_bar_title">Hict7</string>

@@ -19,6 +19,7 @@ import androidx.compose.material.icons.filled.PhoneAndroid
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Timer
+import androidx.compose.material.icons.filled.Title
 import androidx.compose.material.icons.outlined.DarkMode
 import androidx.compose.material.icons.outlined.LightMode
 import androidx.compose.material.icons.outlined.PhoneAndroid
@@ -44,5 +45,6 @@ object Hict7Icons {
     val SystemChecked = Icons.Filled.PhoneAndroid
     val SystemUnchecked = Icons.Outlined.PhoneAndroid
     val Timer = Icons.Default.Timer
+    val Title = Icons.Default.Title
     val WarmUp = Icons.Default.LocalFireDepartment
 }

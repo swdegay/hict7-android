@@ -13,13 +13,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import dev.sethdegay.hict7.core.common.res.R.string
 import dev.sethdegay.hict7.core.designsystem.icon.Hict7Icons
 import dev.sethdegay.hict7.core.designsystem.util.asComposableIconButton
+import dev.sethdegay.hict7.core.ui.WorkoutInitBottomSheet
+import dev.sethdegay.hict7.core.ui.WorkoutInitContent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -31,6 +35,7 @@ fun EditorScreen(navigateUp: () -> Unit, viewModel: EditorViewModel) {
             scrollBehavior.state.collapsedFraction == 0f
         }
     }
+    var showWorkoutInitBottomSheet by remember { mutableStateOf(false) }
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
@@ -55,6 +60,10 @@ fun EditorScreen(navigateUp: () -> Unit, viewModel: EditorViewModel) {
                 scrollBehavior = scrollBehavior,
                 actions = {
                     workout?.apply {
+                        Hict7Icons.Title.asComposableIconButton(
+                            onClick = { showWorkoutInitBottomSheet = true },
+                            contentDescription = stringResource(string.editor_title_edit_content_description),
+                        ).invoke()
                         if (bookmarked) {
                             Hict7Icons.BookmarkedChecked.asComposableIconButton(
                                 onClick = { viewModel.setBookmarked(false) },
@@ -73,5 +82,25 @@ fun EditorScreen(navigateUp: () -> Unit, viewModel: EditorViewModel) {
     ) {
         LazyColumn(Modifier.padding(it)) {
         }
+    }
+    if (showWorkoutInitBottomSheet) {
+        WorkoutInitBottomSheet(
+            workoutInitContent = workout.let {
+                if (it != null) {
+                    WorkoutInitContent(
+                        title = it.title,
+                        description = it.description,
+                    )
+                } else {
+                    null
+                }
+            },
+            onSaveClicked = {
+                viewModel.setTitle(it.title)
+                viewModel.setDescription(it.description)
+                showWorkoutInitBottomSheet = false
+            },
+            onDismissRequest = { showWorkoutInitBottomSheet = false },
+        )
     }
 }

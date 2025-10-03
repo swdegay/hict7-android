@@ -57,6 +57,14 @@ class EditorViewModel @AssistedInject constructor(
         _editableWorkout.value = _editableWorkout.value?.copy(bookmarked = bookmarked)
     }
 
+    fun setTitle(title: String) {
+        _editableWorkout.value = _editableWorkout.value?.copy(title = title)
+    }
+
+    fun setDescription(description: String?) {
+        _editableWorkout.value = _editableWorkout.value?.copy(description = description)
+    }
+
     init {
         viewModelScope.launch {
             _editableWorkout
