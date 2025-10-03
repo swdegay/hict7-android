@@ -2,6 +2,7 @@ package dev.sethdegay.hict7.feature.timer
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -42,6 +43,7 @@ import dev.sethdegay.hict7.core.designsystem.util.asComposableIconButton
 import dev.sethdegay.hict7.core.model.IntervalType
 import dev.sethdegay.hict7.core.timer.CountdownManager
 import dev.sethdegay.hict7.core.ui.WorkoutProgressIndicator
+import dev.sethdegay.hict7.core.ui.util.getIcon
 import dev.sethdegay.hict7.feature.timer.util.Caffeine
 import dev.sethdegay.hict7.feature.timer.util.LifecycleEffect
 import kotlin.time.Duration
@@ -161,10 +163,14 @@ private fun TimerScreen(
             intervalType = intervalType,
             timerState = timerState,
         )
-        CountdownTimerText(
+        Column(
             modifier = Modifier.align(Alignment.Center),
-            duration = time,
-        )
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            intervalType.getIcon(1.4f).invoke()
+            Spacer(Modifier.size(8.dp))
+            CountdownTimerText(duration = time)
+        }
         Box(
             modifier = Modifier
                 .align(Alignment.BottomCenter)

@@ -48,7 +48,7 @@ import dev.sethdegay.hict7.core.designsystem.util.asComposableIcon
 import dev.sethdegay.hict7.core.designsystem.util.asComposableIconButton
 import dev.sethdegay.hict7.core.model.Exercise
 import dev.sethdegay.hict7.core.model.Workout
-import dev.sethdegay.hict7.core.ui.util.getIntervalTypeIcon
+import dev.sethdegay.hict7.core.ui.util.getIcon
 
 private val workoutCardGroupPadding = 16.dp
 
@@ -246,7 +246,7 @@ private fun ExerciseCardGroupItem(exercise: Exercise, paddingValues: PaddingValu
         Text(text = exercise.title)
         CountdownDurationCard(
             duration = exercise.duration,
-            icon = exercise.getIntervalTypeIcon(),
+            icon = exercise.type.getIcon(),
         )
     }
 }
