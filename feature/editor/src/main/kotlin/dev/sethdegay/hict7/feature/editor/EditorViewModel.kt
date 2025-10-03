@@ -6,6 +6,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.sethdegay.hict7.core.common.unixTimeNow
 import dev.sethdegay.hict7.core.data.repository.WorkoutRepository
 import dev.sethdegay.hict7.core.model.Workout
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -72,7 +73,7 @@ class EditorViewModel @AssistedInject constructor(
                 .filterNotNull()
                 .distinctUntilChanged()
                 .collect { workout ->
-                    workout.let { it -> workoutRepository.saveWorkout(it) }
+                    workoutRepository.saveWorkout(workout.copy(dateModified = unixTimeNow))
                 }
         }
 
