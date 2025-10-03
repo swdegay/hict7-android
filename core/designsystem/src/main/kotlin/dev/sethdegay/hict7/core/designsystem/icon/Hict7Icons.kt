@@ -9,6 +9,8 @@ import androidx.compose.material.icons.filled.Air
 import androidx.compose.material.icons.filled.Bedtime
 import androidx.compose.material.icons.filled.DarkMode
 import androidx.compose.material.icons.filled.Error
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.FilterList
 import androidx.compose.material.icons.filled.LightMode
 import androidx.compose.material.icons.filled.LocalFireDepartment
@@ -24,6 +26,8 @@ import androidx.compose.material.icons.outlined.PhoneAndroid
 object Hict7Icons {
     val Add = Icons.Default.Add
     val ArrowBack = Icons.AutoMirrored.Filled.ArrowBack
+    val BookmarkedChecked = Icons.Default.Favorite
+    val BookmarkedUnchecked = Icons.Default.FavoriteBorder
     val CoolDown = Icons.Default.Air
     val DarkModeChecked = Icons.Filled.DarkMode
     val DarkModeUnchecked = Icons.Outlined.DarkMode

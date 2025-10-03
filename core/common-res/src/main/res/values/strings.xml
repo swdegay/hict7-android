@@ -10,6 +10,10 @@
     <string name="common_not_available">n/a</string>
     <string name="common_dialog_close">Close</string>
 
+    <!-- Editor -->
+    <string name="bookmark_add_content_description">Add to favorites</string>
+    <string name="bookmark_remove_content_description">Remove from favorites</string>
+
     <!-- Home -->
     <string name="home_top_app_bar_title">Hict7</string>
     <string name="home_top_app_bar_right_icon_content_description">Settings</string>

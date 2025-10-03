@@ -53,6 +53,21 @@ fun EditorScreen(navigateUp: () -> Unit, viewModel: EditorViewModel) {
                     contentDescription = stringResource(string.common_navigate_up_content_description),
                 ),
                 scrollBehavior = scrollBehavior,
+                actions = {
+                    workout?.apply {
+                        if (bookmarked) {
+                            Hict7Icons.BookmarkedChecked.asComposableIconButton(
+                                onClick = { viewModel.setBookmarked(false) },
+                                contentDescription = stringResource(string.bookmark_remove_content_description),
+                            ).invoke()
+                        } else {
+                            Hict7Icons.BookmarkedUnchecked.asComposableIconButton(
+                                onClick = { viewModel.setBookmarked(true) },
+                                contentDescription = stringResource(string.bookmark_add_content_description),
+                            ).invoke()
+                        }
+                    }
+                }
             )
         }
     ) {
