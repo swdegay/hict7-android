@@ -197,6 +197,8 @@ private fun TimerScreen(
                 ) {
                     when (timerState) {
                         CountdownManager.State.STARTED -> {
+                            Hict7Icons.Pause.asComposableIcon().invoke()
+                            Spacer(Modifier.size(ButtonDefaults.IconSpacing))
                             Text(
                                 text = stringResource(string.timer_pause_button_text),
                                 style = ButtonDefaults.textStyleFor(size),
@@ -205,6 +207,8 @@ private fun TimerScreen(
 
                         CountdownManager.State.PAUSED,
                         CountdownManager.State.STOPPED -> {
+                            Hict7Icons.Play.asComposableIcon().invoke()
+                            Spacer(Modifier.size(ButtonDefaults.IconSpacing))
                             Text(
                                 text = stringResource(string.timer_start_button_text),
                                 style = ButtonDefaults.textStyleFor(size),
