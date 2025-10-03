@@ -58,12 +58,12 @@ fun EditorScreen(navigateUp: () -> Unit, viewModel: EditorViewModel) {
                         if (bookmarked) {
                             Hict7Icons.BookmarkedChecked.asComposableIconButton(
                                 onClick = { viewModel.setBookmarked(false) },
-                                contentDescription = stringResource(string.bookmark_remove_content_description),
+                                contentDescription = stringResource(string.editor_bookmark_remove_content_description),
                             ).invoke()
                         } else {
                             Hict7Icons.BookmarkedUnchecked.asComposableIconButton(
                                 onClick = { viewModel.setBookmarked(true) },
-                                contentDescription = stringResource(string.bookmark_add_content_description),
+                                contentDescription = stringResource(string.editor_bookmark_add_content_description),
                             ).invoke()
                         }
                     }

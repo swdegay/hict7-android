@@ -11,8 +11,8 @@
     <string name="common_dialog_close">Close</string>
 
     <!-- Editor -->
-    <string name="bookmark_add_content_description">Add to favorites</string>
-    <string name="bookmark_remove_content_description">Remove from favorites</string>
+    <string name="editor_bookmark_add_content_description">Add to favorites</string>
+    <string name="editor_bookmark_remove_content_description">Remove from favorites</string>
 
     <!-- Home -->
     <string name="home_top_app_bar_title">Hict7</string>
