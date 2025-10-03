@@ -1,16 +1,25 @@
 package dev.sethdegay.hict7.feature.editor
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.sethdegay.hict7.core.data.repository.WorkoutRepository
+import dev.sethdegay.hict7.core.model.Workout
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.stateIn
 
 @HiltViewModel(assistedFactory = EditorViewModel.Factory::class)
 class EditorViewModel @AssistedInject constructor(
     @Assisted val workoutId: Long?,
+    workoutRepository: WorkoutRepository,
 ) : ViewModel() {
 
     @AssistedFactory
@@ -18,11 +27,17 @@ class EditorViewModel @AssistedInject constructor(
         fun create(workoutId: Long?): EditorViewModel
     }
 
-    private val _id: MutableStateFlow<Long?> = MutableStateFlow(null)
-    val id: StateFlow<Long?>
-        get() = _id
+    private val _id: MutableStateFlow<Long?> = MutableStateFlow(workoutId)
 
-    init {
-        _id.value = workoutId
-    }
+    @OptIn(ExperimentalCoroutinesApi::class)
+    val workout: StateFlow<Workout?> = _id.flatMapLatest { id ->
+        when (id) {
+            null -> flowOf(null)
+            else -> workoutRepository.workoutFlow(id)
+        }
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = null,
+    )
 }
