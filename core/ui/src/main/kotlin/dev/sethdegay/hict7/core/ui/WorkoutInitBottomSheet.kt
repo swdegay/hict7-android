@@ -1,21 +1,25 @@
 package dev.sethdegay.hict7.core.ui
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldLabelPosition
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
@@ -48,10 +52,11 @@ private val descriptions = arrayOf(
     string.common_workout_description_placeholder_8,
 )
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun WorkoutInitBottomSheet(
     modifier: Modifier = Modifier,
+    loading: Boolean,
     workoutInitContent: WorkoutInitContent? = null,
     mainButtonContent: @Composable RowScope.() -> Unit,
     onSaveClicked: (WorkoutInitContent) -> Unit,
@@ -61,11 +66,25 @@ fun WorkoutInitBottomSheet(
         modifier = modifier,
         onDismissRequest = onDismissRequest,
     ) {
-        WorkoutInitBottomSheetContent(
-            workoutInitContent = workoutInitContent,
-            mainButtonContent = mainButtonContent,
-            onSaveClicked = onSaveClicked,
-        )
+        if (loading) {
+            Box(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(32.dp),
+            ) {
+                LoadingIndicator(
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .size(64.dp),
+                )
+            }
+        } else {
+            WorkoutInitBottomSheetContent(
+                workoutInitContent = workoutInitContent,
+                mainButtonContent = mainButtonContent,
+                onSaveClicked = onSaveClicked,
+            )
+        }
     }
 }
 

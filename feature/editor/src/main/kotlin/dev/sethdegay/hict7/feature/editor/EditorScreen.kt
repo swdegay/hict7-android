@@ -89,6 +89,7 @@ fun EditorScreen(navigateUp: () -> Unit, viewModel: EditorViewModel) {
     }
     if (showWorkoutInitBottomSheet) {
         WorkoutInitBottomSheet(
+            loading = false,
             workoutInitContent = workout.let {
                 if (it != null) {
                     WorkoutInitContent(
