@@ -10,8 +10,27 @@
     <string name="common_not_available">n/a</string>
     <string name="common_dialog_close">Close</string>
     <string name="common_dialog_save">Save</string>
-    <string name="common_workout_title_placeholder">Title</string>
-    <string name="common_workout_description_placeholder">Description</string>
+    <string name="common_workout_title_label">Title</string>
+    <string name="common_workout_description_label">Description</string>
+
+    <!-- Workout Title Placeholders -->
+    <string name="common_workout_title_placeholder_1">Session One Focus</string>
+    <string name="common_workout_title_placeholder_2">My Custom Routine</string>
+    <string name="common_workout_title_placeholder_3">Weekly Base Plan</string>
+    <string name="common_workout_title_placeholder_4">Fitness Block A</string>
+    <string name="common_workout_title_placeholder_5">New Program Draft</string>
+    <string name="common_workout_title_placeholder_6">Morning Movement</string>
+    <string name="common_workout_title_placeholder_7">Endurance Circuit</string>
+
+    <!-- Workout Description Placeholders -->
+    <string name="common_workout_description_placeholder_1">Focus on form and controlled eccentric movements.</string>
+    <string name="common_workout_description_placeholder_2">This routine aims for high volume and moderate intensity.</string>
+    <string name="common_workout_description_placeholder_3">Prioritize movement quality over speed or heavy load.</string>
+    <string name="common_workout_description_placeholder_4">A low-impact, full-body activation session.</string>
+    <string name="common_workout_description_placeholder_5">Designed for building functional strength and stability.</string>
+    <string name="common_workout_description_placeholder_6">Use this as a foundation for daily active recovery.</string>
+    <string name="common_workout_description_placeholder_7">Aim to complete all sets within the hour time limit.</string>
+    <string name="common_workout_description_placeholder_8">Keep rest periods short and heart rate elevated.</string>
 
     <!-- Editor -->
     <string name="editor_bookmark_add_content_description">Add to favorites</string>

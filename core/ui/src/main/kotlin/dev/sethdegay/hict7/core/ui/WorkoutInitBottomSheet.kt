@@ -14,6 +14,7 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldLabelPosition
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -24,6 +25,27 @@ import dev.sethdegay.hict7.core.common.res.R.string
 data class WorkoutInitContent(
     val title: String,
     val description: String?,
+)
+
+private val titles = arrayOf(
+    string.common_workout_title_placeholder_1,
+    string.common_workout_title_placeholder_2,
+    string.common_workout_title_placeholder_3,
+    string.common_workout_title_placeholder_4,
+    string.common_workout_title_placeholder_5,
+    string.common_workout_title_placeholder_6,
+    string.common_workout_title_placeholder_7,
+)
+
+private val descriptions = arrayOf(
+    string.common_workout_description_placeholder_1,
+    string.common_workout_description_placeholder_2,
+    string.common_workout_description_placeholder_3,
+    string.common_workout_description_placeholder_4,
+    string.common_workout_description_placeholder_5,
+    string.common_workout_description_placeholder_6,
+    string.common_workout_description_placeholder_7,
+    string.common_workout_description_placeholder_8,
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -64,12 +86,16 @@ private fun WorkoutInitBottomSheetContent(
         TextField(
             modifier = Modifier.fillMaxWidth(),
             state = titleState,
-            placeholder = { Text(stringResource(string.common_workout_title_placeholder)) },
+            label = { Text(stringResource(string.common_workout_title_label)) },
+            labelPosition = TextFieldLabelPosition.Attached(),
+            placeholder = { Text(stringResource(titles.random())) },
         )
         TextField(
             modifier = Modifier.fillMaxWidth(),
             state = descriptionState,
-            placeholder = { Text(stringResource(string.common_workout_description_placeholder)) },
+            label = { Text(stringResource(string.common_workout_description_label)) },
+            labelPosition = TextFieldLabelPosition.Attached(),
+            placeholder = { Text(stringResource(descriptions.random())) },
         )
         WorkoutInitBottomSheetMainButton(
             mainButtonContent = mainButtonContent,
