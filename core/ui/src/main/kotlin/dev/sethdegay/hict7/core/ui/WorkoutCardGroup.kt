@@ -225,8 +225,12 @@ fun WorkoutCardGroup(
         workouts.forEachIndexed { i, workout ->
             WorkoutCardGroup(
                 workout = workout,
-                expanded = expandedId == workout.id,
-                onExpandedChange = { onExpandedIdChange.invoke(workout.id!!) },
+                expanded = expandedId == workout.id && workout.exercises.isNotEmpty(),
+                onExpandedChange = {
+                    if (workout.exercises.isNotEmpty()) {
+                        onExpandedIdChange.invoke(workout.id!!)
+                    }
+                },
                 onLongClick = onLongClick,
                 onFabClick = { navigateToTimer.invoke(workout.id!!) },
             )
