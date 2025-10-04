@@ -2,6 +2,7 @@ package dev.sethdegay.hict7.core.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
@@ -16,6 +17,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import dev.sethdegay.hict7.core.common.res.R.string
 
@@ -24,52 +26,79 @@ data class WorkoutInitContent(
     val description: String?,
 )
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WorkoutInitBottomSheet(
     modifier: Modifier = Modifier,
     workoutInitContent: WorkoutInitContent? = null,
+    mainButtonContent: @Composable RowScope.() -> Unit,
     onSaveClicked: (WorkoutInitContent) -> Unit,
     onDismissRequest: () -> Unit,
 ) {
-    val buttonSize = ButtonDefaults.MediumContainerHeight
-    val titleState = rememberTextFieldState(initialText = workoutInitContent?.title ?: "")
-    val descriptionState =
-        rememberTextFieldState(initialText = workoutInitContent?.description ?: "")
     ModalBottomSheet(
         modifier = modifier,
         onDismissRequest = onDismissRequest,
     ) {
-        Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            TextField(
-                modifier = Modifier.fillMaxWidth(),
-                state = titleState,
-                placeholder = { Text(stringResource(string.common_workout_title_placeholder)) },
-            )
-            TextField(
-                modifier = Modifier.fillMaxWidth(),
-                state = descriptionState,
-                placeholder = { Text(stringResource(string.common_workout_description_placeholder)) },
-            )
-            Button(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .heightIn(buttonSize),
-                onClick = {
-                    onSaveClicked(
-                        WorkoutInitContent(
-                            title = titleState.text.toString(),
-                            description = descriptionState.text.toString(),
-                        )
-                    )
-                },
-                contentPadding = ButtonDefaults.contentPaddingFor(buttonSize),
-            ) {
-                Text(stringResource(string.common_dialog_save))
-            }
-        }
+        WorkoutInitBottomSheetContent(
+            workoutInitContent = workoutInitContent,
+            mainButtonContent = mainButtonContent,
+            onSaveClicked = onSaveClicked,
+        )
     }
+}
+
+@Composable
+private fun WorkoutInitBottomSheetContent(
+    modifier: Modifier = Modifier,
+    workoutInitContent: WorkoutInitContent? = null,
+    onSaveClicked: (WorkoutInitContent) -> Unit,
+    mainButtonContent: @Composable RowScope.() -> Unit,
+) {
+    val titleState = rememberTextFieldState(initialText = workoutInitContent?.title ?: "")
+    val descriptionState =
+        rememberTextFieldState(initialText = workoutInitContent?.description ?: "")
+    Column(
+        modifier = modifier.padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
+        TextField(
+            modifier = Modifier.fillMaxWidth(),
+            state = titleState,
+            placeholder = { Text(stringResource(string.common_workout_title_placeholder)) },
+        )
+        TextField(
+            modifier = Modifier.fillMaxWidth(),
+            state = descriptionState,
+            placeholder = { Text(stringResource(string.common_workout_description_placeholder)) },
+        )
+        WorkoutInitBottomSheetMainButton(
+            mainButtonContent = mainButtonContent,
+            onClick = {
+                onSaveClicked(
+                    WorkoutInitContent(
+                        title = titleState.text.toString(),
+                        description = descriptionState.text.toString(),
+                    )
+                )
+            }
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
+@Composable
+private fun WorkoutInitBottomSheetMainButton(
+    modifier: Modifier = Modifier,
+    mainButtonContent: @Composable RowScope.() -> Unit,
+    onClick: () -> Unit,
+    buttonSize: Dp = ButtonDefaults.MediumContainerHeight
+) {
+    Button(
+        modifier = modifier
+            .fillMaxWidth()
+            .heightIn(buttonSize),
+        onClick = onClick,
+        contentPadding = ButtonDefaults.contentPaddingFor(buttonSize),
+        content = mainButtonContent,
+    )
 }

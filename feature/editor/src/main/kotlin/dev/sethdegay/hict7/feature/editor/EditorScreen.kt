@@ -1,8 +1,11 @@
 package dev.sethdegay.hict7.feature.editor
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
@@ -21,6 +24,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import dev.sethdegay.hict7.core.common.res.R.string
 import dev.sethdegay.hict7.core.designsystem.icon.Hict7Icons
+import dev.sethdegay.hict7.core.designsystem.util.asComposableIcon
 import dev.sethdegay.hict7.core.designsystem.util.asComposableIconButton
 import dev.sethdegay.hict7.core.ui.WorkoutInitBottomSheet
 import dev.sethdegay.hict7.core.ui.WorkoutInitContent
@@ -94,6 +98,11 @@ fun EditorScreen(navigateUp: () -> Unit, viewModel: EditorViewModel) {
                 } else {
                     null
                 }
+            },
+            mainButtonContent = {
+                Hict7Icons.Save.asComposableIcon().invoke()
+                Spacer(Modifier.size(ButtonDefaults.IconSpacing))
+                Text(text = stringResource(string.common_dialog_save))
             },
             onSaveClicked = {
                 viewModel.setTitle(it.title)

@@ -17,6 +17,7 @@ import androidx.compose.material.icons.filled.LocalFireDepartment
 import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PhoneAndroid
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.Save
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material.icons.filled.Title
@@ -41,6 +42,7 @@ object Hict7Icons {
     val Play = Icons.Default.PlayArrow
     val Previous = Icons.AutoMirrored.Filled.ArrowLeft
     val Rest = Icons.Default.Bedtime
+    val Save = Icons.Default.Save
     val Settings = Icons.Default.Settings
     val SystemChecked = Icons.Filled.PhoneAndroid
     val SystemUnchecked = Icons.Outlined.PhoneAndroid
