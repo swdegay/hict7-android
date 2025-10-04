@@ -222,7 +222,7 @@ fun WorkoutCardGroup(
             ).invoke()
         }
         Spacer(modifier = Modifier.size(8.dp))
-        workouts.forEach { workout ->
+        workouts.forEachIndexed { i, workout ->
             WorkoutCardGroup(
                 workout = workout,
                 expanded = expandedId == workout.id,
@@ -230,6 +230,9 @@ fun WorkoutCardGroup(
                 onLongClick = onLongClick,
                 onFabClick = { navigateToTimer.invoke(workout.id!!) },
             )
+            if (i != workouts.lastIndex) {
+                Spacer(modifier = Modifier.size(16.dp))
+            }
         }
     }
 }
