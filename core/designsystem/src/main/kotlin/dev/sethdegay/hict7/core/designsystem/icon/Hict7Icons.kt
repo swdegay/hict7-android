@@ -2,6 +2,7 @@ package dev.sethdegay.hict7.core.designsystem.icon
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.automirrored.filled.ArrowLeft
 import androidx.compose.material.icons.automirrored.filled.ArrowRight
 import androidx.compose.material.icons.filled.Add
@@ -28,6 +29,7 @@ import androidx.compose.material.icons.outlined.PhoneAndroid
 object Hict7Icons {
     val Add = Icons.Default.Add
     val ArrowBack = Icons.AutoMirrored.Filled.ArrowBack
+    val ArrowForward = Icons.AutoMirrored.Filled.ArrowForward
     val BookmarkedChecked = Icons.Default.Favorite
     val BookmarkedUnchecked = Icons.Default.FavoriteBorder
     val CoolDown = Icons.Default.Air

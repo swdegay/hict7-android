@@ -3,6 +3,7 @@ package dev.sethdegay.hict7.feature.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.sethdegay.hict7.core.common.unixTimeNow
 import dev.sethdegay.hict7.core.data.repository.CalendarEventRepository
 import dev.sethdegay.hict7.core.data.repository.UiStatePrefsRepository
 import dev.sethdegay.hict7.core.data.repository.WorkoutRepository
@@ -24,7 +25,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    workoutRepository: WorkoutRepository,
+    private val workoutRepository: WorkoutRepository,
     private val calendarEventRepository: CalendarEventRepository,
     private val uiStatePrefsRepository: UiStatePrefsRepository,
 ) : ViewModel() {
@@ -108,6 +109,23 @@ class HomeViewModel @Inject constructor(
             } else {
                 uiStatePrefsRepository.setExpandedId(id)
             }
+        }
+    }
+
+    fun saveWorkout(title: String, description: String?, onWorkoutSaved: (Long) -> Unit) {
+        viewModelScope.launch {
+            val now = unixTimeNow
+            val id = workoutRepository.saveWorkout(
+                workout = Workout(
+                    title = title,
+                    description = description,
+                    bookmarked = false,
+                    dateCreated = now,
+                    dateModified = now,
+                    exercises = emptyList(),
+                )
+            )
+            onWorkoutSaved(id)
         }
     }
 

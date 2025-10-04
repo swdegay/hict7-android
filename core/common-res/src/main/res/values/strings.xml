@@ -46,6 +46,8 @@
     <string name="home_exercise_filter_bottom_sheet_show_rest_title">Show rest</string>
     <string name="home_exercise_filter_bottom_sheet_show_cool_down_title">Show cool-down</string>
 
+    <string name="home_workout_init_bottom_sheet_main_button_text">Continue to Editor</string>
+
     <!-- Settings -->
     <string name="settings_top_app_bar_title">Settings</string>
 

@@ -41,6 +41,7 @@ import dev.sethdegay.hict7.core.ui.CalendarEventsBottomSheet
 import dev.sethdegay.hict7.core.ui.ExerciseFilterBottomSheet
 import dev.sethdegay.hict7.core.ui.HeatMapCalendar
 import dev.sethdegay.hict7.core.ui.WorkoutCardGroup
+import dev.sethdegay.hict7.core.ui.WorkoutInitBottomSheet
 import java.time.LocalDate
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
@@ -64,6 +65,8 @@ fun HomeScreen(
     val listState = rememberLazyListState()
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
+    var showWorkoutInitBottomSheet by remember { mutableStateOf(false) }
+
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
@@ -79,7 +82,7 @@ fun HomeScreen(
         floatingActionButton = {
             AnimatedVisibility(visible = expandedId == null) {
                 MediumExtendedFloatingActionButton(
-                    onClick = { navigateToEditor(expandedId) },
+                    onClick = { showWorkoutInitBottomSheet = true },
                     containerColor = ButtonDefaults.buttonColors().containerColor,
                 ) {
                     Hict7Icons.Add.asComposableIcon(modifier = Modifier.size(32.dp)).invoke()
@@ -122,6 +125,30 @@ fun HomeScreen(
                 onReturnClick = navigateUp,
             )
         }
+    }
+
+    if (showWorkoutInitBottomSheet) {
+        var loading by remember { mutableStateOf(false) }
+        WorkoutInitBottomSheet(
+            loading = loading,
+            mainButtonContent = {
+                Text(text = stringResource(string.home_workout_init_bottom_sheet_main_button_text))
+                Spacer(Modifier.size(ButtonDefaults.IconSpacing))
+                Hict7Icons.ArrowForward.asComposableIcon().invoke()
+            },
+            onSaveClicked = {
+                loading = true
+                viewModel.saveWorkout(
+                    title = it.title,
+                    description = it.description,
+                    onWorkoutSaved = { id ->
+                        navigateToEditor(id)
+                        showWorkoutInitBottomSheet = false
+                    },
+                )
+            },
+            onDismissRequest = { showWorkoutInitBottomSheet = false }
+        )
     }
 }
 
