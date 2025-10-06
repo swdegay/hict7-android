@@ -19,7 +19,8 @@ monitor their consistency.
 
 Built with Kotlin, Coroutines, Compose, Navigation3, Material3, ViewModel, Room, Hilt,
 DataStore, [Calendar](https://github.com/kizitonwose/Calendar),
-and [AboutLibraries](https://github.com/mikepenz/AboutLibraries).
+[AboutLibraries](https://github.com/mikepenz/AboutLibraries),
+and [Reorderable](https://github.com/Calvin-LL/Reorderable).
 
 ## Features
 
