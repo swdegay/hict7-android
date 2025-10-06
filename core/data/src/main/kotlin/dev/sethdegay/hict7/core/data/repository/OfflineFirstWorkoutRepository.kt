@@ -8,9 +8,6 @@ import dev.sethdegay.hict7.core.database.util.AppTransactionProvider
 import dev.sethdegay.hict7.core.model.Exercise
 import dev.sethdegay.hict7.core.model.IntervalType
 import dev.sethdegay.hict7.core.model.Workout
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class OfflineFirstWorkoutRepository @Inject constructor(
@@ -22,11 +19,8 @@ class OfflineFirstWorkoutRepository @Inject constructor(
     override suspend fun bookmarkedWorkouts(allowedTypes: List<IntervalType>?): List<Workout> =
         workoutDao.bookmarkedWorkouts(allowedTypes).map { it.asExternalModel() }
 
-    override fun workoutFlow(id: Long): Flow<Workout> =
-        workoutDao.workout(id).map { it.asExternalModel() }
-
     override suspend fun workout(id: Long): Workout =
-        workoutDao.workout(id).first().asExternalModel()
+        workoutDao.workout(id).asExternalModel()
 
     override suspend fun saveWorkout(workout: Workout): Long {
         val id = workout.id
@@ -39,7 +33,7 @@ class OfflineFirstWorkoutRepository @Inject constructor(
     }
 
     override suspend fun deleteWorkout(id: Long) {
-        val workout = workoutDao.workout(id).first().asExternalModel()
+        val workout = workoutDao.workout(id).asExternalModel()
         workoutDao.deleteWorkoutAndExercises(
             workoutEntity = workout.asEntity(),
             exerciseEntities = workout.exercises.map { it.asEntity(id) }

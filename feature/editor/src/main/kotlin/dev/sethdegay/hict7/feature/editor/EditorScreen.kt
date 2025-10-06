@@ -1,10 +1,16 @@
 package dev.sethdegay.hict7.feature.editor
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LargeTopAppBar
@@ -19,20 +25,29 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import dev.sethdegay.hict7.core.common.res.R.string
+import dev.sethdegay.hict7.core.designsystem.component.CardGroupItem
+import dev.sethdegay.hict7.core.designsystem.component.CountdownDurationCard
 import dev.sethdegay.hict7.core.designsystem.icon.Hict7Icons
 import dev.sethdegay.hict7.core.designsystem.util.asComposableIcon
 import dev.sethdegay.hict7.core.designsystem.util.asComposableIconButton
+import dev.sethdegay.hict7.core.model.Exercise
 import dev.sethdegay.hict7.core.ui.WorkoutInitBottomSheet
 import dev.sethdegay.hict7.core.ui.WorkoutInitContent
+import dev.sethdegay.hict7.core.ui.util.getIcon
+import sh.calvin.reorderable.ReorderableCollectionItemScope
+import sh.calvin.reorderable.ReorderableItem
+import sh.calvin.reorderable.rememberReorderableLazyListState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EditorScreen(navigateUp: () -> Unit, viewModel: EditorViewModel) {
-    val workout by viewModel.workout.collectAsState()
+    val workout by viewModel.editableWorkout.collectAsState()
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     val topAppBarExpanded by remember {
         derivedStateOf {
@@ -84,7 +99,14 @@ fun EditorScreen(navigateUp: () -> Unit, viewModel: EditorViewModel) {
             )
         }
     ) {
-        LazyColumn(Modifier.padding(it)) {
+        workout?.let { workout ->
+            if (workout.exercises.isNotEmpty()) {
+                EditorScreen(
+                    modifier = Modifier.padding(it),
+                    exercises = workout.exercises,
+                    onExercisesChanged = { exercises -> viewModel.setExercises(exercises) }
+                )
+            }
         }
     }
     if (showWorkoutInitBottomSheet) {
@@ -112,5 +134,69 @@ fun EditorScreen(navigateUp: () -> Unit, viewModel: EditorViewModel) {
             },
             onDismissRequest = { showWorkoutInitBottomSheet = false },
         )
+    }
+}
+
+@Composable
+private fun EditorScreen(
+    modifier: Modifier = Modifier,
+    exercises: List<Exercise>,
+    onExercisesChanged: (List<Exercise>) -> Unit,
+) {
+    val lazyListState = rememberLazyListState()
+    val reorderableLazyListState = rememberReorderableLazyListState(lazyListState) { from, to ->
+        val exercises = exercises.toMutableList().apply {
+            add(to.index, removeAt(from.index))
+        }
+        onExercisesChanged(exercises)
+    }
+
+    LazyColumn(
+        modifier = modifier.padding(horizontal = 16.dp),
+        state = lazyListState,
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
+        items(items = exercises, key = { it.id!! }) { exercise ->
+            ReorderableItem(reorderableLazyListState, key = exercise.id!!) { isDragging ->
+                CardGroupItem { paddingValues ->
+                    ExerciseCardGroupItem(
+                        scope = this,
+                        exercise = exercise,
+                        paddingValues = paddingValues,
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun ExerciseCardGroupItem(
+    scope: ReorderableCollectionItemScope,
+    exercise: Exercise,
+    paddingValues: PaddingValues,
+) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Hict7Icons.DragHandle.asComposableIconButton(
+            modifier = with(scope) {
+                Modifier.draggableHandle()
+            },
+            onClick = {},
+            contentDescription = "Reorder",
+            enableToolTip = false,
+        ).invoke()
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(paddingValues),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
+            Text(text = exercise.title)
+            CountdownDurationCard(
+                duration = exercise.duration,
+                icon = exercise.type.getIcon(),
+            )
+        }
     }
 }

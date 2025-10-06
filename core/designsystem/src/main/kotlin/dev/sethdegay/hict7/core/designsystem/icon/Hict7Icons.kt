@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Air
 import androidx.compose.material.icons.filled.Bedtime
 import androidx.compose.material.icons.filled.DarkMode
+import androidx.compose.material.icons.filled.DragHandle
 import androidx.compose.material.icons.filled.Error
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
@@ -35,6 +36,7 @@ object Hict7Icons {
     val CoolDown = Icons.Default.Air
     val DarkModeChecked = Icons.Filled.DarkMode
     val DarkModeUnchecked = Icons.Outlined.DarkMode
+    val DragHandle = Icons.Default.DragHandle
     val Error = Icons.Default.Error
     val Filter = Icons.Default.FilterList
     val LightModeChecked = Icons.Filled.LightMode

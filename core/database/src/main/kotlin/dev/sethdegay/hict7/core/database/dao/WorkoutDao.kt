@@ -11,9 +11,14 @@ import dev.sethdegay.hict7.core.database.model.WorkoutEntity
 import dev.sethdegay.hict7.core.database.model.WorkoutWithExercises
 import dev.sethdegay.hict7.core.model.IntervalType
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 
 @Dao
 interface WorkoutDao {
+    @Query("SELECT * FROM workout WHERE id == :id")
+    fun workoutInternal(id: Long): Flow<WorkoutEntity>
+
     @Query("SELECT * FROM workout WHERE bookmarked == TRUE")
     suspend fun bookmarkedWorkouts(): List<WorkoutEntity>
 
@@ -25,6 +30,16 @@ interface WorkoutDao {
         workoutId: Long,
         allowedTypes: List<IntervalType>,
     ): List<ExerciseEntity>
+
+    @Transaction
+    suspend fun workout(id: Long): WorkoutWithExercises {
+        return workoutInternal(id).map {
+            WorkoutWithExercises(
+                workoutEntity = it,
+                exercises = exercisesForWorkout(id)
+            )
+        }.first()
+    }
 
     @Transaction
     suspend fun bookmarkedWorkouts(allowedTypes: List<IntervalType>?): List<WorkoutWithExercises> {
@@ -41,10 +56,6 @@ interface WorkoutDao {
         }
         return bookmarkedWorkouts
     }
-
-    @Transaction
-    @Query("SELECT * FROM workout WHERE id == :id")
-    fun workout(id: Long): Flow<WorkoutWithExercises>
 
     @Insert
     fun insertWorkout(workoutEntity: WorkoutEntity): Long

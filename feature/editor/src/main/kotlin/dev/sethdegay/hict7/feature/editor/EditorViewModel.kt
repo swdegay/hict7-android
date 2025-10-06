@@ -1,5 +1,6 @@
 package dev.sethdegay.hict7.feature.editor
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.assisted.Assisted
@@ -8,18 +9,14 @@ import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.sethdegay.hict7.core.common.unixTimeNow
 import dev.sethdegay.hict7.core.data.repository.WorkoutRepository
+import dev.sethdegay.hict7.core.model.Exercise
 import dev.sethdegay.hict7.core.model.Workout
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 @OptIn(FlowPreview::class)
@@ -38,21 +35,9 @@ class EditorViewModel @AssistedInject constructor(
         fun create(workoutId: Long?): EditorViewModel
     }
 
-    private val _id: MutableStateFlow<Long?> = MutableStateFlow(workoutId)
-
-    @OptIn(ExperimentalCoroutinesApi::class)
-    val workout: StateFlow<Workout?> = _id.flatMapLatest { id ->
-        when (id) {
-            null -> flowOf(null)
-            else -> workoutRepository.workoutFlow(id)
-        }
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = null,
-    )
-
     private val _editableWorkout: MutableStateFlow<Workout?> = MutableStateFlow(null)
+    val editableWorkout: StateFlow<Workout?>
+        get() = _editableWorkout
 
     fun setBookmarked(bookmarked: Boolean) {
         _editableWorkout.value = _editableWorkout.value?.copy(bookmarked = bookmarked)
@@ -66,6 +51,10 @@ class EditorViewModel @AssistedInject constructor(
         _editableWorkout.value = _editableWorkout.value?.copy(description = description)
     }
 
+    fun setExercises(exercises: List<Exercise>) {
+        _editableWorkout.value = _editableWorkout.value?.copy(exercises = exercises)
+    }
+
     init {
         viewModelScope.launch {
             _editableWorkout
@@ -73,12 +62,22 @@ class EditorViewModel @AssistedInject constructor(
                 .filterNotNull()
                 .distinctUntilChanged()
                 .collect { workout ->
-                    workoutRepository.saveWorkout(workout.copy(dateModified = unixTimeNow))
+                    val id = workoutRepository.saveWorkout(
+                        workout.copy(
+                            dateModified = unixTimeNow,
+                            exercises = workout.exercises.mapIndexed { i, exercise ->
+                                exercise.copy(order = i + 1)
+                            },
+                        )
+                    )
+                    Log.d("AUTOSAVE", "ID: $id, Timestamp: $unixTimeNow")
                 }
         }
 
-        viewModelScope.launch {
-            workout.collect { _editableWorkout.value = it }
+        workoutId?.let { id ->
+            viewModelScope.launch {
+                _editableWorkout.value = workoutRepository.workout(id)
+            }
         }
     }
 }

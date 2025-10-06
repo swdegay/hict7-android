@@ -10,6 +10,8 @@ import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -37,6 +39,9 @@ private val trailingItemPadding = PaddingValues(
     end = 16.dp,
     bottom = 16.dp,
 )
+
+@Composable
+private fun itemShape() = MaterialTheme.shapes.medium
 
 @Composable
 private fun leadingItemShape(shape: CornerBasedShape = MaterialTheme.shapes.medium) =
@@ -116,4 +121,19 @@ fun CardGroupTitle(
         title = title,
         description = description,
     )
+}
+
+@Composable
+fun CardGroupItem(
+    modifier: Modifier = Modifier,
+    colors: CardColors = CardDefaults.cardColors(),
+    content: @Composable (PaddingValues) -> Unit,
+) {
+    Card(
+        modifier = modifier,
+        shape = itemShape(),
+        colors = colors,
+    ) {
+        content(contentPadding)
+    }
 }
