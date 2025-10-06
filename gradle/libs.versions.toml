@@ -24,6 +24,7 @@ kotlinx-serialization-core = "1.9.0"
 ksp = "2.2.20-2.0.3"
 protobuf = "4.32.1"
 protobuf-gradle-plugin = "0.9.5"
+reorderable = "3.0.0"
 
 [libraries]
 aboutlibraries-core = { module = "com.mikepenz:aboutlibraries-core", version.ref = "aboutlibraries" }
@@ -65,6 +66,7 @@ kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-cor
 kotlinx-serialization-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "kotlinx-serialization-core" }
 protobuf-kotlin-lite = { group = "com.google.protobuf", name = "protobuf-kotlin-lite", version.ref = "protobuf" }
 protobuf-protoc = { group = "com.google.protobuf", name = "protoc", version.ref = "protobuf" }
+reorderable = { module = "sh.calvin.reorderable:reorderable", version.ref = "reorderable" }
 
 # build-logic libraries
 android-gradle-plugin = { group = "com.android.tools.build", name = "gradle", version.ref = "android-gradle-plugin" }
